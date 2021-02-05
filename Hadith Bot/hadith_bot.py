@@ -17,8 +17,10 @@ hadith_collection = json_hadith_response['collection']
 hadith_book_number = json_hadith_response['bookNumber']
 hadith_topic = json_hadith_response['hadith'][0]['chapterTitle']
 hadith_body = json_hadith_response['hadith'][0]['body']
+hadith_body_edited = hadith_body.replace("<br/>","").strip("<p></p>").replace("<b>","").replace("</b>","")
+
 
 print(f"From Collection of {hadith_collection.title()}")
 print(f"Book of {hadith_book_number}")
 print(f"Under the topic:{hadith_topic}")
-print(f"Hadith:{hadith_body}")
+print(f"Hadith:{hadith_body_edited}")
