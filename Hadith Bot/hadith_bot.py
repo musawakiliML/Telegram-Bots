@@ -41,12 +41,31 @@ def result(update, context):
 
 dispatcher.add_handler(CommandHandler("randomhadith", result))
 
+
+
+def get_collection(collection_name):
+    url = f"https://api.sunnah.com/v1/collections/{collection_name}"
+
+    payload = "{}"
+    headers = {'x-api-key': 'SqD712P3E82xnwOAEOkGd5JZH8s9wRR24TqNFzjk'}
+
+    response = requests.request("GET", url, data=payload, headers=headers)
+
+    collections = response.json()
+    return collections
+
+
 def collections(update, context):
     collections_info = "You can get information about the top five collections of hadith is the islamic tradition.\n \
         They are listed below.\n 1. Bukhari."
     context.bot.send_message(chat_id = update.effective_chat.id, text = collections_info)
 
 dispatcher.add_handler(CommandHandler("collections", collections))
+
+def get_bukhari(update, context):
+    context.bot.send_message(chat_id = update.effective_chat.id, text = get_collection('bukhari'))
+
+dispatcher.add_handler(CommandHandler("bukhari",get_bukhari))
 
 updater.start_polling()
 updater.idle()
