@@ -34,11 +34,20 @@ def get_hadith():
     
     random_hadith = f"From Collection of {hadith_collection.title()}\n Book of {hadith_book_number} \
         \nUnder the topic:{hadith_topic}\n HADITH:{hadith_body_edited}"
-    return random_hadith 
+    return random_hadith
+
 def result(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text=get_hadith())
 
 dispatcher.add_handler(CommandHandler("randomhadith", result))
 
+def collections(update, context):
+    collections_info = "You can get information about the top five collections of hadith is the islamic tradition.\n \
+        They are listed below.\n 1. Bukhari."
+    context.bot.send_message(chat_id = update.effective_chat.id, text = collections_info)
+
+dispatcher.add_handler(CommandHandler("collections", collections))
+
 updater.start_polling()
 updater.idle()
+
