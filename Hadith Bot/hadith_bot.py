@@ -58,7 +58,7 @@ def get_collection(collection_name):
 
 def collections(update, context):
     collections_info = "You can get information about the top five collections of hadith is the islamic tradition.\n \
-        They are listed below.\n 1. Bukhari."
+        They are listed below.\n 1. Bukhari\n 2. Muslim\n 3. Sunan Nasa-i\n 4. Sunan Abi Dawud\n 5. Jami` at-Tirmidhi\n 6. Sunan Ibn Majah"
     context.bot.send_message(chat_id = update.effective_chat.id, text = collections_info)
 
 dispatcher.add_handler(CommandHandler("collections", collections))
