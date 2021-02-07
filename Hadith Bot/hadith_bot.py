@@ -52,7 +52,8 @@ def get_collection(collection_name):
     response = requests.request("GET", url, data=payload, headers=headers)
 
     collections = response.json()
-    return collections
+    collections_edited = collections['collection'][0]['shortIntro']
+    return collections_edited
 
 
 def collections(update, context):
