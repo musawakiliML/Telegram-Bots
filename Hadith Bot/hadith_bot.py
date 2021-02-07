@@ -5,10 +5,6 @@ from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 updater = Updater(token="1682743874:AAFe-9mXdjoM0l9_77SYAmn5AG0Kqo7pp4k", use_context= True)
 dispatcher = updater.dispatcher
 
-def start(update, context):
-    context.bot.send_message(chat_id = update.effective_chat.id, text="Get a random hadiths")
-
-dispatcher.add_handler(CommandHandler("start", start))
 
 def get_hadith():
 
@@ -36,12 +32,6 @@ def get_hadith():
         \nUnder the topic:{hadith_topic}\n HADITH:{hadith_body_edited}"
     return random_hadith
 
-def result(update, context):
-    context.bot.send_message(chat_id=update.effective_chat.id, text=get_hadith())
-
-dispatcher.add_handler(CommandHandler("randomhadith", result))
-
-
 
 def get_collection(collection_name):
     url = f"https://api.sunnah.com/v1/collections/{collection_name}"
@@ -52,21 +42,50 @@ def get_collection(collection_name):
     response = requests.request("GET", url, data=payload, headers=headers)
 
     collections = response.json()
-    collections_edited = collections['collection'][0]['shortIntro']
+    collections_edited = collections['collection'][0]['shortIntro'].replace("<i>","").replace("</i>","")
     return collections_edited
 
+
+def start(update, context):
+    context.bot.send_message(chat_id = update.effective_chat.id, text="Get a random hadiths")
+
+def result(update, context):
+    context.bot.send_message(chat_id=update.effective_chat.id, text=get_hadith())
 
 def collections(update, context):
     collections_info = "You can get information about the top five collections of hadith is the islamic tradition.\n \
         They are listed below.\n 1. Bukhari\n 2. Muslim\n 3. Sunan Nasa-i\n 4. Sunan Abi Dawud\n 5. Jami` at-Tirmidhi\n 6. Sunan Ibn Majah"
     context.bot.send_message(chat_id = update.effective_chat.id, text = collections_info)
 
-dispatcher.add_handler(CommandHandler("collections", collections))
-
 def get_bukhari(update, context):
     context.bot.send_message(chat_id = update.effective_chat.id, text = get_collection('bukhari'))
 
+def get_muslim(update, context):
+    context.bot.send_message(chat_id = update.effective_chat.id, text = get_collection('muslim'))
+
+def get_sunan_nasai(update, context):
+    context.bot.send_message(chat_id = update.effective_chat.id, text = get_collection('nasai'))
+
+def get_sunan_abudawud(update, context):
+    context.bot.send_message(chat_id = update.effective_chat.id, text = get_collection('adudawud'))
+
+def get_jami_attirmidhi(update, context):
+    context.bot.send_message(chat_id = update.effective_chat.id, text = get_collection('tirmidhi'))
+
+def get_sunan_ibnmajah(update, context):
+    context.bot.send_message(chat_id = update.effective_chat.id, text = get_collection('ibnmajah'))
+
+
+dispatcher.add_handler(CommandHandler("start", start))
+dispatcher.add_handler(CommandHandler("randomhadith", result))
+dispatcher.add_handler(CommandHandler("collections", collections))
 dispatcher.add_handler(CommandHandler("bukhari",get_bukhari))
+dispatcher.add_handler(CommandHandler("muslim",get_muslim))
+dispatcher.add_handler(CommandHandler("nasai",get_sunan_nasai))
+dispatcher.add_handler(CommandHandler("abudawud",get_sunan_abudawud))
+dispatcher.add_handler(CommandHandler("tirmidhi",get_jami_attirmidhi))
+dispatcher.add_handler(CommandHandler("ibnmajah",get_sunan_ibnmajah))
+
 
 updater.start_polling()
 updater.idle()
