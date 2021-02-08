@@ -1,1 +1,1 @@
-web: python3 hadith_bot.py
+web: python hadith_bot.py
