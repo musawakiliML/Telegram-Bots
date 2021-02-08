@@ -3,7 +3,7 @@ import os
 from telegram.ext import CommandHandler, Updater, MessageHandler, Filters, CallbackQueryHandler
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 
-PORT = int(os.environ.get('PORT', 5000))
+#PORT = int(os.environ.get('PORT', 5000))
 TOKEN = "1682743874:AAFe-9mXdjoM0l9_77SYAmn5AG0Kqo7pp4k"
 
 updater = Updater(token = TOKEN, use_context= True)
@@ -91,9 +91,9 @@ dispatcher.add_handler(CommandHandler("tirmidhi",get_jami_attirmidhi))
 dispatcher.add_handler(CommandHandler("ibnmajah",get_sunan_ibnmajah))
 
 
-#updater.start_polling()
-#updater.idle()
-
-updater.start_webhook(listen = "0.0.0.0", port = int(PORT), url_path = TOKEN)
-updater.bot.set_webhook('https://hadithsbot.herokuapp.com/' + TOKEN)
+updater.start_polling()
 updater.idle()
+
+#updater.start_webhook(listen = "0.0.0.0", port = int(PORT), url_path = TOKEN)
+#updater.bot.set_webhook('https://hadithsbot.herokuapp.com/' + TOKEN)
+#updater.idle()
