@@ -6,7 +6,6 @@ TOKEN = '1654757071:AAHoiYZJkX1Ejt1DYznFLKC0M-CfGUOE0Mk'
 updater = Updater(token = TOKEN, use_context=True)
 dispatcher = updater.dispatcher
 
-
 def email_validator(email):
     email_regex = re.compile(r'''(
 
