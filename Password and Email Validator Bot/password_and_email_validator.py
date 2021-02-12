@@ -23,12 +23,15 @@ def email_validator(email):
         return f"{email} is not a valid email"
 
 #email_validator("musaww@hhhe")
+def start(update: Update, context: CallbackContext):
+    update.message.reply_text("This bot validates email addresses. You Just write the email and it will tell you\
+        whether it is valid or not!")
 
 def validator(update: Update, context: CallbackContext):
     update.message.reply_text(email_validator(update.message.text))
 
 dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, validator))
-
+dispatcher.add_handler(CommandHandler("start", start))
 
 updater.start_polling()
 updater.idle()
