@@ -40,22 +40,23 @@ def strong_password_validator(password):
                     It Should be 8+ characters in lenght.\
                     Enter another password:"
         else:
-            print("Password is strong")
-            return
+            return f"Password is strong"
 
 def start(update: Update, context: CallbackContext):
     update.message.reply_text("This bot validates email addresses. You Just write the email and it will tell you\
         whether it is valid or not! Select \password or \email")
 def email(update: Update, context: CallbackContext):
-    update.message.reply_text("Enter a password to test:")
+    update.message.reply_text("Enter an email to test:")
     dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, email_validator))
 
 def validator(update: Update, context: CallbackContext):
     update.message.reply_text(email_validator(update.message.text))
 
 def pass_validator(update:Update, context: CallbackContext):
-    update.message.reply_text(email_validator(update.message.text))
+    update.message.reply_text(strong_password_validator(update.message.text))
 
+def password(update: Update, context: CallbackContext):
+    update.message.reply_text("Enter a Password to test:")
 
 dispatcher.add_handler(CommandHandler("start", start))
 dispatcher.add_handler(CommandHandler("password", password))
